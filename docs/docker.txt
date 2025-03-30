@@ -1,0 +1,24 @@
+Docker is a platform for developing, shipping, and running applications in containers.
+
+Common Docker errors and solutions:
+
+Error: Image Build Failure
+
+Fix: Inspect Dockerfile for syntax issues and missing dependencies.
+
+Error: Container Exits Immediately
+
+Fix: Check container logs using docker logs <container-id>.
+
+Error: Port Already in Use
+
+Fix: Change the exposed port or stop conflicting services.
+
+Error: Network Connectivity Issues
+
+Fix: Use docker network ls to verify network configurations.
+
+Error: High Disk Usage
+
+Fix: Remove unused images and containers using docker system prune.
+

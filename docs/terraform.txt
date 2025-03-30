@@ -1,0 +1,23 @@
+Terraform is an infrastructure as code (IaC) tool that enables users to define and provision data center infrastructure using a high-level configuration language.
+
+Common Terraform errors and solutions:
+
+Error: Provider Configuration Issues
+
+Fix: Ensure the provider block is properly configured in main.tf.
+
+Error: State Locking Issues
+
+Fix: Check for an active state lock and release it using terraform force-unlock <LOCK_ID>.
+
+Error: Dependency Cycle Detected
+
+Fix: Use depends_on to explicitly define dependencies between resources.
+
+Error: Insufficient IAM Permissions
+
+Fix: Ensure your cloud provider credentials have the necessary IAM permissions.
+
+Error: Version Conflicts
+
+Fix: Use terraform required_version to specify compatible Terraform versions.

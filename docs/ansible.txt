@@ -1,0 +1,23 @@
+Ansible is an open-source automation tool used for configuration management, application deployment, and orchestration.
+
+Common Ansible errors and solutions:
+
+Error: Host Unreachable
+
+Fix: Ensure SSH keys and inventory configurations are correct.
+
+Error: YAML Syntax Errors
+
+Fix: Validate playbooks using ansible-lint or yamllint.
+
+Error: Module Not Found
+
+Fix: Install required Ansible modules using ansible-galaxy or system package managers.
+
+Error: Playbook Hangs
+
+Fix: Check for long-running tasks and consider using async.
+
+Error: Permission Denied
+
+Fix: Use become: yes for privilege escalation.

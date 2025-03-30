@@ -1,0 +1,23 @@
+Kubernetes is a container orchestration platform that automates deployment, scaling, and management of containerized applications.
+
+Common Kubernetes errors and solutions:
+
+Error: CrashLoopBackOff
+
+Fix: Check pod logs using kubectl logs <pod-name> and inspect for application failures.
+
+Error: ImagePullBackOff
+
+Fix: Verify the image exists and the credentials are correct.
+
+Error: Node Not Ready
+
+Fix: Check node status with kubectl get nodes and ensure kubelet is running.
+
+Error: Service Not Accessible
+
+Fix: Ensure service type and port configurations are correct.
+
+Error: Persistent Volume Claim Pending
+
+Fix: Verify that storage classes and volume availability match the request.
