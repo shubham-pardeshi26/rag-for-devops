@@ -1,7 +1,12 @@
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+
+# Initialize FastAPI app
+app = FastAPI(title="DevOps Assistant API", description="Ask DevOps-related questions")
 
 # Load the embeddings model
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -19,39 +24,32 @@ model = AutoModelForCausalLM.from_pretrained(
     quantization_config={"load_in_4bit": True}
 )
 
-def get_response(query):
+# Request model
+class QueryRequest(BaseModel):
+    query: str
+
+@app.post("/query")
+def get_response(request: QueryRequest):
     """Fetches response from the model based on a query."""
+    query = request.query
+    
     # Retrieve relevant documents
     docs = vector_store.similarity_search(query, k=2)
     context = "\n".join([doc.page_content for doc in docs])
     
     prompt = f"""
-            You are a DevOps assistant. Answer based on the given context.
-            If the context is not relevant, say 'I do not have enough information.'
-
-            Context: {context}
-            Question: {query}
-            Detailed Answer:
-            """
+    Context: {context}
+    Question: {query}
+    Answer:
+    """
     
     inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
-    output = model.generate(**inputs, max_new_tokens=200)  # Fixed truncation issue
+    output = model.generate(**inputs, max_new_tokens=200)
     response = tokenizer.decode(output[0], skip_special_tokens=True)
     
-    return f"""
-    💡 **DevOps Assistant Response**
-    
-    📌 **Issue:** {query}
-    
-    ✅ **Solution:**
-    {response}
-    
-    ---
-    📘 **Need More Help?** Ask a more specific question!
-    """
+    return {
+        "query": query,
+        "response": response
+    }
 
-# Example usage
-if __name__ == "__main__":
-    query = "How can I set up a CI/CD pipeline using GitHub Actions for an Azure-based microservices project?"
-    response = get_response(query)
-    print(response)
+# Run with: uvicorn filename:app --reload

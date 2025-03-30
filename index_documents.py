@@ -1,7 +1,7 @@
 from langchain_community.vectorstores import FAISS
 # from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.embeddings import HuggingFaceEmbeddings
-
+import faiss
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 
